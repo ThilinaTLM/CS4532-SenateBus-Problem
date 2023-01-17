@@ -13,6 +13,10 @@ public class BusStop {
     private final Semaphore queueLimit = new Semaphore(MAX_CAPACITY); // maintain the queue size
     private SenateBus bus;
 
+    /**
+     * Rider calls this method to wait for the bus
+     * @param rider the rider
+     */
     void waitForBus(Rider rider) throws InterruptedException {
         queueLimit.acquire(); // update queue limiting semaphore
         inMutex.lock(); // lock other riders from entering the bus stop
@@ -20,6 +24,10 @@ public class BusStop {
         inMutex.unlock(); // let other riders enter the bus stop
     }
 
+    /**
+     * Bus calls this method to arrive at the bus stop
+     * @param bus the bus
+     */
     void arriveBus(SenateBus bus) throws InterruptedException {
         inMutex.lock(); // lock the queue
         outMutex.lock(); // lock the queue
@@ -32,6 +40,10 @@ public class BusStop {
         outMutex.unlock();
     }
 
+    /**
+     * Riders call this method to board the bus
+     * @param rider the rider
+     */
     void boardBus(Rider rider) {
         this.queueLimit.release(); // get out from the queue
         this.outMutex.lock();
@@ -43,6 +55,9 @@ public class BusStop {
         this.outMutex.unlock();
     }
 
+    /**
+     * Bus calls this method to depart the bus stop
+     */
     void departureBus() throws InterruptedException {
         this.bus = null;
         this.showInfo(-1);
@@ -50,9 +65,17 @@ public class BusStop {
     }
 
 
+    /**
+     * Show the current status of the bus stop
+     */
     void showInfo() {
         this.showInfo(0);
     }
+
+    /**
+     * Show the current status of the bus stop
+     * @param status - 1: bus arrives, 0: idle, -1: bus departs
+     */
     synchronized void showInfo(int status) {
         if (status == -1) {
             System.out.println("---------------- Bus departed -----------------");
