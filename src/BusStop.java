@@ -36,7 +36,7 @@ public class BusStop {
         this.queueLimit.release(); // get out from the queue
         this.outMutex.lock();
         this.riders.remove(rider);
-        Main.sleep(50);
+        Main.randomSleep(Main.RIDER_BOARDING_INTERVAL_MIN, Main.RIDER_BOARDING_INTERVAL_MAX);
         if (riders.isEmpty()) {
             this.bus.signal();
         }

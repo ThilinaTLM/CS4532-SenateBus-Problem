@@ -4,10 +4,14 @@ public class Main {
     static long BUS_ARRIVAL_INTERVAL_MIN = 5000;
     static long BUS_ARRIVAL_INTERVAL_MAX = 9000;
 
-    static long RIDER_ARRIVAL_INTERVAL_MIN = 100;
+    static long RIDER_ARRIVAL_INTERVAL_MIN = 700;
     static long RIDER_ARRIVAL_INTERVAL_MAX = 1000;
 
+    static long RIDER_BOARDING_INTERVAL_MIN = 100;
+    static long RIDER_BOARDING_INTERVAL_MAX = 1000;
+
     static long CONSOLE_UPDATE_INTERVAL = 1000;
+
 
     public static void main(String[] args) {
         BusStop busStop = new BusStop();
